@@ -1,0 +1,25 @@
+{
+  "name": "SSRBlog",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "NODE_ENV=production node server.js",
+    "build": "next build",
+    "dev": "./node_modules/nodemon/bin/nodemon.js server.js --watch server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "isomorphic-unfetch": "^1.0.0",
+    "koa": "^2.2.0",
+    "koa-router": "^7.2.0",
+    "next": "^2.4.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
