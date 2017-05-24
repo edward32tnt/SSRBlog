@@ -1,14 +1,31 @@
+import { getLocationOrigin } from 'next/dist/lib/utils'
+import fetch from 'isomorphic-unfetch'
+
 import Layout from '../components/Layout'
 
-const Content = (props) => (
+
+
+const Content = ({blog={}}) => (
   <div>
-    <h1>{props.url.query.title}</h1>
-    <p>This is the blog post content.</p>
+    <h1>{blog.title}</h1>
+    <p>{blog.desc}</p>
   </div>
 )
 
-export default (props) => (
+const Post = (props) => (
   <Layout>
-    <Content url={props.url}/>
+    <Content blog={props.blog}/>
   </Layout>
 )
+
+Post.getInitialProps = async ({req, res, query}) => {
+  const nowUrl = res && res.statusCode ? `http://${req.headers.host}`: getLocationOrigin()
+
+  const fetchres = await fetch(`${nowUrl}/api/blog/${query.id}`)
+  const blog = await fetchres.json()
+  return {
+    blog,
+  }
+}
+
+export default Post

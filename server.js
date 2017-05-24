@@ -7,15 +7,20 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 
 const datasource = [
-  { title: 'i m fucking low', },
-  { title: 'i m fucking middle', },
-  { title: 'i m fucking high', },
+  { title: 'i m fucking low', desc: 'i m fucking low'},
+  { title: 'i m fucking middle', desc: 'i m fucking middle'},
+  { title: 'i m fucking high', desc: 'i m fucking high'},
 ]
 
 app.prepare()
 .then(() => {
   const server = new Koa()
   const router = new Router()
+  router.get('/api/blog/:id', async ctx => {
+    console.log('get', datasource[ctx.params.id])
+    ctx.body = datasource[ctx.params.id]
+    return
+  })
   router.get('/api/blogs', async ctx => {
     ctx.body = datasource
     return
@@ -23,7 +28,7 @@ app.prepare()
 
   router.get('/p/:id', async ctx => {
     const actualPage = '/post'
-    const queryParams = { title: datasource[ctx.params.id].title}
+    const queryParams = { id: ctx.params.id, title: datasource[ctx.params.id].title}
     return await app.render(ctx.req, ctx.res, actualPage, queryParams)
   })
 
