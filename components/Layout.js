@@ -1,4 +1,5 @@
 import Header from './Header'
+import Titler from './Titler'
 
 const layoutStyle = {
   margin: 20,
@@ -10,6 +11,7 @@ const Layout = (props) => {
   return (
     <div style={layoutStyle}>
       <Header />
+      <Titler />
       {props.children}
     </div>
   )

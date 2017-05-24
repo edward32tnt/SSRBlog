@@ -21,7 +21,6 @@ const Index = (props) => {
         }
       `}
       </style>
-      <p>My Blog</p>
       <Grid columns={4}>
         <Grid.Row>
           {props.blogs.map((b, index) => (
