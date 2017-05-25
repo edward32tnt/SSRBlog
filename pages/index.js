@@ -1,9 +1,8 @@
-import Link from 'next/link'
+import React from 'react'
 import { getLocationOrigin } from 'next/dist/lib/utils'
 import fetch from 'isomorphic-unfetch'
 
-import { Card, Grid } from 'semantic-ui-react'
-const CardGroup = Card.Group
+import { Grid } from 'semantic-ui-react'
 
 import Layout from '../components/Layout'
 import PostCard from '../components/PostCard'
@@ -34,12 +33,12 @@ const Index = (props) => {
   )
 }
 
-Index.getInitialProps = async ({req, res})=> {
-  const nowUrl = res && res.statusCode? `http://${req.headers.host}`: getLocationOrigin()
+Index.getInitialProps = async ({ req, res }) => {
+  const nowUrl = res && res.statusCode ? `http://${req.headers.host}` : getLocationOrigin()
   const fetchres = await fetch(`${nowUrl}/api/blogs`)
   const blogs = await fetchres.json()
   return {
-    blogs,
+    blogs
   }
 }
 

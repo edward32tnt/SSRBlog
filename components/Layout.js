@@ -1,3 +1,5 @@
+import React from 'react'
+
 import Header from './Header'
 import Head from 'next/head'
 import Titler from './Titler'
@@ -5,7 +7,7 @@ import Titler from './Titler'
 const layoutStyle = {
   margin: 20,
   padding: 20,
-  border: '1px solid #DDD',
+  border: '1px solid #DDD'
 }
 
 const Layout = (props) => {

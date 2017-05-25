@@ -1,14 +1,13 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Link from 'next/link'
 import { Grid } from 'semantic-ui-react'
 
 const linkStyle = {
-  marginRight: 15,
+  marginRight: 15
 }
 
 class Header extends Component {
   render() {
-    const {title = 'SSRBlog'} = this.state || {}
     return (
       <Grid columns={1}>
         <Grid.Row>

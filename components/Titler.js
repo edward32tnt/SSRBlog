@@ -1,22 +1,21 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { Grid } from 'semantic-ui-react'
 
 import { getLocationOrigin } from 'next/dist/lib/utils'
 import fetch from 'isomorphic-unfetch'
 
 class Titler extends Component {
-
   constructor(props) {
     super(props)
-    this.state = {title: 'SSRBlog'}
+    this.state = { title: 'SSRBlog' }
   }
   async componentDidMount() {
     console.log('componentDidMount only run in frontend')
-    const res = await fetch(getLocationOrigin()+'/api/header')
+    const res = await fetch(getLocationOrigin() + '/api/header')
     const data = await res.json()
     console.log('componentDidMount get data', data)
     this.setState({
-      title: data.body,
+      title: data.body
     })
   }
 

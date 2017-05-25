@@ -1,11 +1,11 @@
+import React from 'react'
+
 import { getLocationOrigin } from 'next/dist/lib/utils'
 import fetch from 'isomorphic-unfetch'
 
 import Layout from '../components/Layout'
 
-
-
-const Content = ({blog={}}) => (
+const Content = ({ blog = {} }) => (
   <div>
     <h1>{blog.title}</h1>
     <p>{blog.desc}</p>
@@ -18,13 +18,13 @@ const Post = (props) => (
   </Layout>
 )
 
-Post.getInitialProps = async ({req, res, query}) => {
-  const nowUrl = res && res.statusCode ? `http://${req.headers.host}`: getLocationOrigin()
+Post.getInitialProps = async ({ req, res, query }) => {
+  const nowUrl = res && res.statusCode ? `http://${req.headers.host}` : getLocationOrigin()
 
   const fetchres = await fetch(`${nowUrl}/api/blog/${query.id}`)
   const blog = await fetchres.json()
   return {
-    blog,
+    blog
   }
 }
 
