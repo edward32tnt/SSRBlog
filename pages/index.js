@@ -37,6 +37,7 @@ Index.getInitialProps = async ({ req, res }) => {
   const nowUrl = res && res.statusCode ? `http://${req.headers.host}` : getLocationOrigin()
   const fetchres = await fetch(`${nowUrl}/api/blogs`)
   const { data, seoTitle } = await fetchres.json()
+  console.log('seoTitle', seoTitle)
   return {
     blogs: data,
     seoTitle

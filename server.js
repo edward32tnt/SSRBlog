@@ -45,7 +45,7 @@ app.prepare()
   })
 
   router.get('*', async ctx => {
-    return await handle(ctx.req, ctx.res, {seoTitle: '来段freestyle'})
+    return await handle(ctx.req, ctx.res)
   })
 
   server.use(async (ctx, next) => {
