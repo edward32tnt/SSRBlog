@@ -9,7 +9,7 @@ import PostCard from '../components/PostCard'
 
 const Index = (props) => {
   return (
-    <Layout>
+    <Layout seoTitle={props.seoTitle}>
       <style jsx>
       {`
         h1, a {
@@ -24,7 +24,7 @@ const Index = (props) => {
         <Grid.Row>
           {props.blogs.map((b, index) => (
             <Grid.Column key={index}>
-              <PostCard id={index} title={b.title} desc={b.title} />
+              <PostCard id={b.slug} title={b.title} desc={b.summary} />
             </Grid.Column>
           ))}
         </Grid.Row>
@@ -36,9 +36,10 @@ const Index = (props) => {
 Index.getInitialProps = async ({ req, res }) => {
   const nowUrl = res && res.statusCode ? `http://${req.headers.host}` : getLocationOrigin()
   const fetchres = await fetch(`${nowUrl}/api/blogs`)
-  const blogs = await fetchres.json()
+  const { data, seoTitle } = await fetchres.json()
   return {
-    blogs
+    blogs: data,
+    seoTitle
   }
 }
 

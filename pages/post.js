@@ -8,7 +8,7 @@ import Layout from '../components/Layout'
 const Content = ({ blog = {} }) => (
   <div>
     <h1>{blog.title}</h1>
-    <p>{blog.desc}</p>
+    <article dangerouslySetInnerHTML={{ __html: blog.body }}></article>
   </div>
 )
 
@@ -22,9 +22,9 @@ Post.getInitialProps = async ({ req, res, query }) => {
   const nowUrl = res && res.statusCode ? `http://${req.headers.host}` : getLocationOrigin()
 
   const fetchres = await fetch(`${nowUrl}/api/blog/${query.id}`)
-  const blog = await fetchres.json()
+  const { data } = await fetchres.json()
   return {
-    blog
+    blog: data
   }
 }
 

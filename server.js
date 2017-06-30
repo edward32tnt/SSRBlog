@@ -3,21 +3,18 @@ const next = require('next')
 const Router = require('koa-router')
 const moment = require('moment')
 const _ = require('lodash')
+const Butter = require('buttercms')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
+const butter = Butter('b0c2bf095d63b9f24d62db674c8bd1d88036fa44')
+
 const Header = [
   {body: 'Have a Nice day, I m Edward32tnt'},
   {body: 'Glad to see u, I m Edward32tnt\'s Blog'},
   {body: `Today is ${moment().format('dddd')}, I m Edward32tnt`},
-]
-
-const datasource = [
-  { title: 'i m fucking low', desc: 'i m fucking low'},
-  { title: 'i m fucking middle', desc: 'i m fucking middle'},
-  { title: 'i m fucking high', desc: 'i m fucking high'},
 ]
 
 app.prepare()
@@ -29,23 +26,26 @@ app.prepare()
     return
   })
   router.get('/api/blog/:id', async ctx => {
-    console.log('get', datasource[ctx.params.id])
-    ctx.body = datasource[ctx.params.id]
+    const { data } = await butter.post.retrieve(ctx.params.id)
+    // console.log(data)
+    ctx.body = data
     return
   })
   router.get('/api/blogs', async ctx => {
-    ctx.body = datasource
+    const { data } = await butter.post.list()
+    // console.log(data)
+    ctx.body = data
     return
   })
 
   router.get('/p/:id', async ctx => {
     const actualPage = '/post'
-    const queryParams = { id: ctx.params.id, title: datasource[ctx.params.id].title}
+    const queryParams = { id: ctx.params.id }
     return await app.render(ctx.req, ctx.res, actualPage, queryParams)
   })
 
   router.get('*', async ctx => {
-    return await handle(ctx.req, ctx.res)
+    return await handle(ctx.req, ctx.res, {seoTitle: '来段freestyle'})
   })
 
   server.use(async (ctx, next) => {
