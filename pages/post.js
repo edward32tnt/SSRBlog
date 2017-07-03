@@ -13,7 +13,7 @@ const Content = ({ blog = {} }) => (
 )
 
 const Post = (props) => (
-  <Layout>
+  <Layout seoTitle={props.seoTitle}>
     <Content blog={props.blog}/>
   </Layout>
 )
@@ -23,8 +23,10 @@ Post.getInitialProps = async ({ req, res, query }) => {
 
   const fetchres = await fetch(`${nowUrl}/api/blog/${query.id}`)
   const { data } = await fetchres.json()
+  const seoTitle = data.seo_title
   return {
-    blog: data
+    blog: data,
+    seoTitle
   }
 }
 

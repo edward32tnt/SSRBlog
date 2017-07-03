@@ -45,7 +45,8 @@ app.prepare()
   })
 
   router.get('*', async ctx => {
-    return await handle(ctx.req, ctx.res)
+    const actualPage = ctx.request.path
+    return await app.render(ctx.req, ctx.res, actualPage, {seoTitle: Header[_.random(0, Header.length-1)]})
   })
 
   server.use(async (ctx, next) => {
